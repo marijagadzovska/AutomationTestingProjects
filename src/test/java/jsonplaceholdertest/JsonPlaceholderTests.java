@@ -86,67 +86,53 @@ public class JsonPlaceholderTests {
     }
 
     @Test
-    public void getAllPosts(){
+    public void getAllPosts() {
         Response getResponse = new JsonPlaceholderClient()
                 .getAllPosts();
 
         List<JsonPlaceholderResponseModelGETAll> employeeResponse = getResponse
                 .body()
                 .jsonPath()
-                .getList("",JsonPlaceholderResponseModelGETAll.class);
+                .getList("", JsonPlaceholderResponseModelGETAll.class);
 
-        assertEquals(200,getResponse.statusCode());
+        assertEquals(200, getResponse.statusCode());
         assertFalse(employeeResponse.isEmpty());
     }
 
     @Test
-    public void getPostById(){
+    public void getPostById() {
         Response getResponse = new JsonPlaceholderClient()
                 .getPost("1");
 
         JsonPlaceholderResponseModelGETAll postResponse = getResponse.body().as(JsonPlaceholderResponseModelGETAll.class);
 
-        assertEquals(200,getResponse.statusCode());
-        assertEquals(title,postResponse.getTitle());
+        assertEquals(200, getResponse.statusCode());
+        assertEquals(title, postResponse.getTitle());
         assertEquals(body, postResponse.getBody());
     }
 
-     @Test
-     public void updatePostTest() {
-         JsonPlaceholderModelPUT requestBody = new JsonPlaceholderDataFactoryPUT(createBodyForJsonPlaceholderPut())
-                 .setTitle("sunt aut facere repellat provident occaecati excepturi")
-                 .setBody("sunt aut facere repellat provident occaecati excepturi optio")
-                 .createRequest();
+    @Test
+    public void updatePostTest() {
+        JsonPlaceholderModelPUT requestBody = new JsonPlaceholderDataFactoryPUT(createBodyForJsonPlaceholderPut())
+                .setTitle("sunt aut facere repellat provident occaecati excepturi")
+                .setBody("sunt aut facere repellat provident occaecati excepturi optio")
+                .createRequest();
 
-         Response putResponse = new JsonPlaceholderClient()
-                 .updatePost(requestBody, "1");
+        Response putResponse = new JsonPlaceholderClient()
+                .updatePost(requestBody, "1");
 
-         JsonPlaceholderModelPUT updateResponse = putResponse.body().as(JsonPlaceholderModelPUT.class);
+        JsonPlaceholderModelPUT updateResponse = putResponse.body().as(JsonPlaceholderModelPUT.class);
 
-         assertEquals(200, putResponse.statusCode());
-         assertEquals("sunt aut facere repellat provident occaecati excepturi", updateResponse.getTitle());
-         assertEquals("sunt aut facere repellat provident occaecati excepturi optio", updateResponse.getBody());
-     }
+        assertEquals(200, putResponse.statusCode());
+        assertEquals("sunt aut facere repellat provident occaecati excepturi", updateResponse.getTitle());
+        assertEquals("sunt aut facere repellat provident occaecati excepturi optio", updateResponse.getBody());
+    }
 
-     @Test
-    public void deletePostTest(){
-         Response deleteResponse = new JsonPlaceholderClient()
-                 .deletePost("1");
+    @Test
+    public void deletePostTest() {
+        Response deleteResponse = new JsonPlaceholderClient()
+                .deletePost("1");
 
-         assertEquals(200,deleteResponse.statusCode());
+        assertEquals(200, deleteResponse.statusCode());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
