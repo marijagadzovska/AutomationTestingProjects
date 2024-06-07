@@ -3,7 +3,7 @@ package clients;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import model.JsonPlaceholderModelPUT;
+import model.response.JsonPlaceholderModelPUT;
 import model.request.JsonPlaceholderRequestModelPOST;
 import util.Configuration;
 
@@ -16,6 +16,7 @@ public class JsonPlaceholderClient {
                 .post(Configuration.JSON_PLACEHOLDER_BASE_URL)
                 .thenReturn();
     }
+
     public Response getAllPosts(){
         return RestAssured.given()
                 .when().log().all()
@@ -29,6 +30,7 @@ public class JsonPlaceholderClient {
                 .get(Configuration.JSON_PLACEHOLDER_BASE_URL + "/" + id)
                 .thenReturn();
     }
+
     public Response updatePost(JsonPlaceholderModelPUT request, String id){
         return RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -44,8 +46,4 @@ public class JsonPlaceholderClient {
                 .delete(Configuration.JSON_PLACEHOLDER_BASE_URL + "/" + id)
                 .thenReturn();
     }
-
-
-
-
 }

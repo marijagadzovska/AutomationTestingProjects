@@ -4,7 +4,7 @@ import clients.JsonPlaceholderClient;
 import datafactory.JsonPlaceholderDataFactoryPOST;
 import datafactory.JsonPlaceholderDataFactoryPUT;
 import io.restassured.response.Response;
-import model.JsonPlaceholderModelPUT;
+import model.response.JsonPlaceholderModelPUT;
 import model.request.JsonPlaceholderRequestModelPOST;
 import model.response.JsonPlaceholderResponseModelGETAll;
 import model.response.JsonPlaceholderResponseModelPOST;
@@ -40,8 +40,8 @@ public class JsonPlaceholderTests {
     @Test
     public void JsonPlaceholderRequestMaximumCharactersForFields() {
         JsonPlaceholderRequestModelPOST requestBody = new JsonPlaceholderDataFactoryPOST(createBodyForJsonPlaceholderPost())
-                .setTitle("aaaaaaaaaa")
-                .setBody("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                .setTitle("Maximum Character Limit for Title")
+                .setBody("This is a test body content to check the maximum character limit for the fields in the POST request")
                 .createRequest();
 
         Response postResponse = new JsonPlaceholderClient()
@@ -50,15 +50,15 @@ public class JsonPlaceholderTests {
         JsonPlaceholderResponseModelPOST jsonplaceholderResponse = postResponse.body().as(JsonPlaceholderResponseModelPOST.class);
 
         assertEquals(201, postResponse.statusCode());
-        assertEquals("aaaaaaaaaa", jsonplaceholderResponse.getTitle());
-        assertEquals("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", jsonplaceholderResponse.getBody());
+        assertEquals("Maximum Character Limit for Title", jsonplaceholderResponse.getTitle());
+        assertEquals("This is a test body content to check the maximum character limit for the fields in the POST request", jsonplaceholderResponse.getBody());
     }
 
     @Test
     public void JsonPlaceholderRequestMoreThenMaximumCharactersForFields() {
         JsonPlaceholderRequestModelPOST requestBody = new JsonPlaceholderDataFactoryPOST(createBodyForJsonPlaceholderPost())
-                .setTitle("aaaaaaaaaa")
-                .setBody("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                .setTitle(title + "More then maximum Character Limit for Title test")
+                .setBody(body + "This is a test body content to check the maximum character limit for the fields in the POST request")
                 .createRequest();
 
         Response postResponse = new JsonPlaceholderClient()
@@ -71,7 +71,7 @@ public class JsonPlaceholderTests {
     public void JsonPlaceholderRequest() {
         JsonPlaceholderRequestModelPOST requestBody = new JsonPlaceholderDataFactoryPOST(createBodyForJsonPlaceholderPost())
                 .setTitle("Makedonija osvoi svetso prvenstvo vo fudbal")
-                .setBody("Noviot svetski prvak Maedonija go osvoi svetsoto prvenstvo vo fudbal odrzano vo Madrid")
+                .setBody("Noviot svetski prvak Makedonija go osvoi svetsoto prvenstvo vo fudbal odrzano vo Madrid")
                 .createRequest();
 
         Response postResponse = new JsonPlaceholderClient()
@@ -81,7 +81,7 @@ public class JsonPlaceholderTests {
 
         assertEquals(201, postResponse.statusCode());
         assertEquals("Makedonija osvoi svetso prvenstvo vo fudbal", jsonplaceholderResponse.getTitle());
-        assertEquals("Noviot svetski prvak Maedonija go osvoi svetsoto prvenstvo vo fudbal odrzano vo Madrid", jsonplaceholderResponse.getBody());
+        assertEquals("Noviot svetski prvak Makedonija go osvoi svetsoto prvenstvo vo fudbal odrzano vo Madrid", jsonplaceholderResponse.getBody());
 
     }
 
@@ -95,15 +95,8 @@ public class JsonPlaceholderTests {
                 .jsonPath()
                 .getList("",JsonPlaceholderResponseModelGETAll.class);
 
-
-//        List<JsonPlaceholderResponseModelGETAll> jsonplaceholderResponse;
-//        jsonplaceholderResponse = getResponse
-//                .body()
-//                .as(new TypeRef<List<JsonPlaceholderResponseModelGETAll>>() {});
-
         assertEquals(200,getResponse.statusCode());
         assertFalse(employeeResponse.isEmpty());
-
     }
 
     @Test
@@ -141,10 +134,8 @@ public class JsonPlaceholderTests {
                  .deletePost("1");
 
          assertEquals(200,deleteResponse.statusCode());
-
-     }
-
-   }
+    }
+}
 
 
 

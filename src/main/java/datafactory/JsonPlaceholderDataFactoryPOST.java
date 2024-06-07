@@ -23,5 +23,4 @@ public class JsonPlaceholderDataFactoryPOST {
     public JsonPlaceholderRequestModelPOST createRequest(){
         return request;
     }
-
 }

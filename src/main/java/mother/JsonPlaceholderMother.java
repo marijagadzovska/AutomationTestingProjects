@@ -10,5 +10,4 @@ public class JsonPlaceholderMother {
                 .body("Default body")
                 .build();
     }
-
 }

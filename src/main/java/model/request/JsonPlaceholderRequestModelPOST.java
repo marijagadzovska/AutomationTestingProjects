@@ -14,5 +14,4 @@ public class JsonPlaceholderRequestModelPOST {
     String title;
     String body;
 
-
 }

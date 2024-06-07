@@ -1,9 +1,9 @@
 package mother;
 
-import model.JsonPlaceholderModelPUT;
-import model.request.JsonPlaceholderRequestModelPOST;
+import model.response.JsonPlaceholderModelPUT;
 
 public class JsonPlaceholderMotherPUT {
+
     public static JsonPlaceholderModelPUT createBodyForJsonPlaceholderPut(){
         return JsonPlaceholderModelPUT.builder()
                 .title("Default title")

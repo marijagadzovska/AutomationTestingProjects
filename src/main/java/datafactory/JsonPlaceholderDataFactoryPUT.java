@@ -1,7 +1,6 @@
 package datafactory;
 
-import model.JsonPlaceholderModelPUT;
-import model.request.JsonPlaceholderRequestModelPOST;
+import model.response.JsonPlaceholderModelPUT;
 
 public class JsonPlaceholderDataFactoryPUT {
 
@@ -24,5 +23,5 @@ public class JsonPlaceholderDataFactoryPUT {
         public JsonPlaceholderModelPUT createRequest() {
             return request;
         }
-    }
+}
 
